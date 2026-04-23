@@ -12,9 +12,24 @@ An agentic podcast knowledge wiki. Drop episode transcripts or show notes in —
 ## Architecture
 
 ```
-src/           TypeScript agent runner
-wiki/          podcast knowledge base (episodes, shows, guests, topics, concepts)
-research/      topic research spaces (papers, podcast leads, log)
+wiki/
+  raw/transcripts/   drop episode transcripts or show notes here
+  episodes/          one structured summary per episode
+  shows/             podcast show profiles
+  guests/            guest and host profiles
+  topics/            recurring discussion topics and themes
+  concepts/          higher-level ideas across episodes
+  syntheses/         cross-episode thematic analyses
+  archive/           retired pages (never deleted)
+
+research/
+  <topic>/
+    index.md         topic framework + search keywords + schedule
+    papers.md        academic signals for podcast discovery
+    podcasts.md      podcast leads with ingest status
+    log.md           append-only research history
+
+src/           TypeScript agent runner, research motor, cascade fetcher
 agents/        agent definitions and process memories
 commands/      slash command templates
 ```
@@ -23,7 +38,7 @@ See `docs/report/index.html` for the full architecture report.
 
 ## Setup
 
-**Prerequisites:** Node.js 18+, a Claude account (Pro or above for scheduled routines), git.
+**Prerequisites:** Node.js 20+, [Claude CLI](https://github.com/anthropics/claude-code) (`npm install -g @anthropic-ai/claude-code`), `obsidian-hybrid-search` (`npm install -g obsidian-hybrid-search`), git.
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/podvault my-podvault
@@ -43,6 +58,10 @@ Edit `CLAUDE.md` to set your podcast categories and open questions, then edit `s
 | `/query <question>` | Ask a question, get a sourced answer |
 | `/lint` | Check wiki health (orphan pages, missing sources) |
 | `/new-research <topic>` | Create a new research folder + schedule a routine |
+| `/fetch-transcript` | Fetch a transcript via YouTube → RSS → Whisper cascade |
+| `/setup` | First-time intake interview |
+| `/session-start` | Load context, log session open |
+| `/session-end` | Flush scratch notes, log session close |
 
 ## Automation options
 
