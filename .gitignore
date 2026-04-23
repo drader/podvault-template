@@ -20,8 +20,6 @@ wiki/raw/transcripts/*.md
 wiki/raw/show-notes/*.txt
 wiki/raw/show-notes/*.md
 research/*/log.md
-memory/status.md
-memory/decisions.md
 
 # OS
 .DS_Store
@@ -33,5 +31,9 @@ Thumbs.db
 *.swp
 *.swo
 
-# Claude local state
-.claude/projects/
+# Claude Code local state
+.claude/
+
+# Obsidian local UI state
+.obsidian/workspace.json
+.obsidian/graph.json
