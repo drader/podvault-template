@@ -8,20 +8,22 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
   :root {
-    --bg: #0d1117;
-    --surface: #161b22;
-    --surface2: #1c2128;
-    --border: #30363d;
-    --text: #e6edf3;
-    --muted: #8b949e;
+    --bg: #09080f;
+    --surface: #100e18;
+    --surface2: #161320;
+    --border: #2d1f4e;
+    --text: #c8c0d8;
+    --muted: #5a4f72;
     --green: #3fb950;
     --blue: #58a6ff;
-    --purple: #bc8cff;
+    --purple: #a78bfa;
     --orange: #ffa657;
     --red: #f85149;
     --yellow: #e3b341;
     --teal: #56d364;
-    --accent: #238636;
+    --accent: #7c3aed;
+    --accent-bright: #a78bfa;
+    --accent-glow: rgba(167,139,250,0.15);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -43,7 +45,7 @@
     align-items: center;
     text-align: center;
     padding: 60px 40px;
-    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
+    background: linear-gradient(135deg, #09080f 0%, #100e18 50%, #09080f 100%);
     position: relative;
     overflow: hidden;
     page-break-after: always;
@@ -54,16 +56,16 @@
     position: absolute;
     width: 600px; height: 600px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(35,134,54,0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
   }
 
   .cover-badge {
     display: inline-block;
-    background: rgba(35,134,54,0.2);
+    background: rgba(124,58,237,0.15);
     border: 1px solid var(--accent);
-    color: var(--green);
+    color: var(--accent-bright);
     padding: 6px 16px;
     border-radius: 20px;
     font-size: 11px;
@@ -78,7 +80,7 @@
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 16px;
-    background: linear-gradient(135deg, #e6edf3, #58a6ff);
+    background: linear-gradient(135deg, #c8c0d8, #a78bfa);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -117,9 +119,9 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: rgba(88,166,255,0.1);
-    border: 1px solid rgba(88,166,255,0.3);
-    color: var(--blue);
+    background: rgba(124,58,237,0.12);
+    border: 1px solid rgba(167,139,250,0.35);
+    color: var(--accent-bright);
     padding: 4px 12px;
     border-radius: 4px;
     font-size: 10px;
@@ -294,9 +296,9 @@
   }
 
   .tag {
-    background: rgba(88,166,255,0.1);
-    border: 1px solid rgba(88,166,255,0.2);
-    color: var(--blue);
+    background: rgba(124,58,237,0.12);
+    border: 1px solid rgba(167,139,250,0.25);
+    color: var(--accent-bright);
     padding: 2px 8px;
     border-radius: 10px;
     font-size: 10px;
@@ -338,8 +340,8 @@
 
   /* ── Info boxes ─────────────────────────────── */
   .info-box {
-    background: rgba(88,166,255,0.07);
-    border: 1px solid rgba(88,166,255,0.25);
+    background: rgba(124,58,237,0.07);
+    border: 1px solid rgba(167,139,250,0.25);
     border-radius: 8px;
     padding: 16px 18px;
     margin: 16px 0;
@@ -349,7 +351,7 @@
 
   .info-box .ib-title {
     font-weight: 600;
-    color: var(--blue);
+    color: var(--accent-bright);
     margin-bottom: 6px;
     font-size: 11px;
     text-transform: uppercase;
@@ -471,7 +473,7 @@
 
   /* ── Print ───────────────────────────────────── */
   @media print {
-    body { background: #0d1117 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { background: #09080f !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .cover { page-break-after: always; }
     .page { page-break-after: always; }
     .page:last-child { page-break-after: avoid; }
@@ -489,27 +491,32 @@
   .lang-switch {
     position: fixed;
     top: 16px;
-    right: 16px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1000;
-    background: rgba(13,17,23,0.92);
+    background: rgba(9,8,15,0.88);
     border: 1px solid var(--accent);
     border-radius: 20px;
     padding: 6px 18px;
     font-size: 11px;
     font-family: 'JetBrains Mono', monospace;
-    color: var(--green);
+    color: var(--accent-bright);
     cursor: pointer;
     letter-spacing: 1px;
     white-space: nowrap;
-    transition: background 0.15s;
+    opacity: 1;
+    transition: background 0.15s, opacity 0.4s;
   }
-  .lang-switch:hover { background: rgba(35,134,54,0.2); }
+  .lang-switch.faded { opacity: 0.2; }
+  .lang-switch.faded:hover { opacity: 1; }
+  .lang-switch:hover { background: rgba(124,58,237,0.18); }
 
   @media print { .lang-switch { display: none; } }
 </style>
 <script>
 function setLang(l){document.documentElement.className='lang-'+l;localStorage.setItem('pv-lang',l);}
 (function(){var s=localStorage.getItem('pv-lang');if(s)document.documentElement.className='lang-'+s;})();
+window.addEventListener('scroll',function(){var b=document.querySelector('.lang-switch');if(b)b.classList.toggle('faded',window.scrollY>80);});
 </script>
 </head>
 <body>
@@ -517,7 +524,6 @@ function setLang(l){document.documentElement.className='lang-'+l;localStorage.se
 
 <!-- ══ COVER ══════════════════════════════════════════════════════════ -->
 <div class="cover">
-  <div class="cover-badge"><span class="tr">Mimari Rapor · 2026-04-23</span><span class="en">Architecture Report · 2026-04-23</span></div>
   <h1><span class="tr">Memex'ten<br>Podvault'a</span><span class="en">From Memex<br>to Podvault</span></h1>
   <p class="subtitle">
     <span class="tr">Agent tabanlı bir kişisel bilgi tabanının neden inşa edildiği, nasıl çalıştığı ve hangi ihtiyaçları hangi aşamada karşıladığı</span>
@@ -526,7 +532,6 @@ function setLang(l){document.documentElement.className='lang-'+l;localStorage.se
   <div class="cover-meta">
     <div><span><span class="tr">Proje</span><span class="en">Project</span></span><br>memex → podvault</div>
     <div><span>Model</span><br>Claude Sonnet 4.6</div>
-    <div><span><span class="tr">Tarih</span><span class="en">Date</span></span><br>2026-04-23</div>
   </div>
 </div>
 
