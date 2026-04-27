@@ -107,12 +107,16 @@
   .lang-en .tr { display: none; }
   .lang-switch {
     position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-    z-index: 600; background: rgba(9,8,15,0.92); border: 1px solid var(--accent-dim);
-    border-radius: 20px; padding: 5px 16px; font-size: 11px;
-    font-family: 'JetBrains Mono', monospace; color: var(--accent);
-    cursor: pointer; letter-spacing: 0.12em; white-space: nowrap; transition: background 0.15s;
+    z-index: 600; display: flex;
+    border: 1px solid var(--accent-dim); border-radius: 4px; overflow: hidden;
   }
-  .lang-switch:hover { background: var(--accent-muted); }
+  .lang-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--text-dim); padding: 4px 12px; letter-spacing: 0.12em; transition: color 0.15s;
+  }
+  .lang-btn:hover { color: var(--accent); }
+  .lang-btn.active { background: var(--accent-muted); color: var(--accent); }
   @media print { .lang-switch { display: none; } }
 
   .back-link { position: fixed; top: 16px; left: 24px; font-size: 11px; color: var(--text-dim); text-decoration: none; letter-spacing: 0.1em; z-index: 500; display: flex; align-items: center; gap: 6px; transition: color 0.15s; }
@@ -121,12 +125,21 @@
   .report-link:hover { color: var(--accent); border-color: var(--accent); }
 </style>
 <script>
-function setLang(l){document.documentElement.className='lang-'+l;localStorage.setItem('pv-lang',l);}
+function setLang(l){
+  document.documentElement.className='lang-'+l;
+  localStorage.setItem('pv-lang',l);
+  var t=document.getElementById('btn-tr'),e=document.getElementById('btn-en');
+  if(t&&e){t.classList.toggle('active',l==='tr');e.classList.toggle('active',l==='en');}
+}
 (function(){var s=localStorage.getItem('pv-lang');if(s)document.documentElement.className='lang-'+s;})();
+window.addEventListener('DOMContentLoaded',function(){var s=localStorage.getItem('pv-lang')||'tr';var t=document.getElementById('btn-tr'),e=document.getElementById('btn-en');if(t&&e){t.classList.toggle('active',s==='tr');e.classList.toggle('active',s==='en');}});
 </script>
 </head>
 <body>
-<button class="lang-switch" onclick="setLang(document.documentElement.className==='lang-tr'?'en':'tr')"><span class="tr">EN</span><span class="en">TR</span></button>
+<div class="lang-switch">
+  <button class="lang-btn active" id="btn-tr" onclick="setLang('tr')">TR</button>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+</div>
 
 <a href="https://drader.github.io/memex/" class="back-link">
   <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>

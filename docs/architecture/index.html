@@ -490,26 +490,20 @@
 
   .lang-switch {
     position: fixed;
-    top: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    background: rgba(9,8,15,0.88);
-    border: 1px solid var(--accent);
-    border-radius: 20px;
-    padding: 6px 18px;
-    font-size: 11px;
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--accent-bright);
-    cursor: pointer;
-    letter-spacing: 1px;
-    white-space: nowrap;
-    opacity: 1;
-    transition: background 0.15s, opacity 0.4s;
+    top: 16px; left: 50%; transform: translateX(-50%);
+    z-index: 1000; display: flex;
+    border: 1px solid rgba(124,58,237,0.4); border-radius: 4px; overflow: hidden;
+    opacity: 1; transition: opacity 0.4s;
   }
   .lang-switch.faded { opacity: 0.2; }
   .lang-switch.faded:hover { opacity: 1; }
-  .lang-switch:hover { background: rgba(124,58,237,0.18); }
+  .lang-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--muted); padding: 4px 12px; letter-spacing: 0.1em; transition: color 0.15s;
+  }
+  .lang-btn:hover { color: var(--accent-bright); }
+  .lang-btn.active { background: rgba(124,58,237,0.18); color: var(--accent-bright); }
 
   .back-link {
     position: fixed; top: 16px; left: 24px;
@@ -522,8 +516,14 @@
   @media print { .lang-switch, .back-link { display: none; } }
 </style>
 <script>
-function setLang(l){document.documentElement.className='lang-'+l;localStorage.setItem('pv-lang',l);}
+function setLang(l){
+  document.documentElement.className='lang-'+l;
+  localStorage.setItem('pv-lang',l);
+  var t=document.getElementById('btn-tr'),e=document.getElementById('btn-en');
+  if(t&&e){t.classList.toggle('active',l==='tr');e.classList.toggle('active',l==='en');}
+}
 (function(){var s=localStorage.getItem('pv-lang');if(s)document.documentElement.className='lang-'+s;})();
+window.addEventListener('DOMContentLoaded',function(){var s=localStorage.getItem('pv-lang')||'tr';var t=document.getElementById('btn-tr'),e=document.getElementById('btn-en');if(t&&e){t.classList.toggle('active',s==='tr');e.classList.toggle('active',s==='en');}});
 window.addEventListener('scroll',function(){var b=document.querySelector('.lang-switch');if(b)b.classList.toggle('faded',window.scrollY>80);});
 </script>
 </head>
@@ -532,7 +532,10 @@ window.addEventListener('scroll',function(){var b=document.querySelector('.lang-
   <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
   podvault
 </a>
-<button class="lang-switch" onclick="setLang(document.documentElement.className==='lang-tr'?'en':'tr')"><span class="tr">EN</span><span class="en">TR</span></button>
+<div class="lang-switch">
+  <button class="lang-btn active" id="btn-tr" onclick="setLang('tr')">TR</button>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+</div>
 
 <!-- ══ COVER ══════════════════════════════════════════════════════════ -->
 <div class="cover">
